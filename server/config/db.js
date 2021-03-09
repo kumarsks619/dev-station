@@ -7,6 +7,7 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
+            useFindAndModify: false,
         })
         console.log(chalk.bgGreen('MongoDB Connected...'))
     } catch (err) {

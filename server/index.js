@@ -21,7 +21,7 @@ app.get('/', (req, res) => res.send('<h1>DevStation server is up and running...<
 // Defining Routes
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
-app.use('/api/profile', profileRoutes)
+app.use('/api/profiles', profileRoutes)
 app.use('/api/posts', postRoutes)
 
 const PORT = process.env.PORT || 5000

@@ -16,6 +16,9 @@ const auth = (req, res, next) => {
 
         next()
     } catch (err) {
+        if (err.message == "Cannot read property 'split' of undefined") {
+            return res.status(401).json({ msg: 'No token, Authorization denied' })
+        }
         return res.status(401).json({ msg: 'Invalid/Expired Token' })
     }
 }

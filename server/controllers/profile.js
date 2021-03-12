@@ -6,7 +6,7 @@ const User = require('../models/User')
 
 const profileGetMine = async (req, res) => {
     try {
-        const foundProfile = await Profile.findOne({ user: req.user.id }).populate(
+        const foundProfile = await Profile.findOne({ user: req.user.ID }).populate(
             'user',
             ['name', 'avatar']
         )
@@ -45,7 +45,7 @@ const profileCreate = async (req, res) => {
     // building profile object
     const profileFields = {}
 
-    profileFields.user = req.user.id
+    profileFields.user = req.user.ID
     if (company) profileFields.company = company
     if (website) profileFields.website = website
     if (location) profileFields.location = location
@@ -66,12 +66,12 @@ const profileCreate = async (req, res) => {
     if (instagram) profileFields.social.instagram = instagram
 
     try {
-        const foundProfile = await Profile.findOne({ user: req.user.id })
+        const foundProfile = await Profile.findOne({ user: req.user.ID })
 
         if (foundProfile) {
             // if profile already exists, then update the profile
             const updatedProfile = await Profile.findOneAndUpdate(
-                { user: req.user.id },
+                { user: req.user.ID },
                 { $set: profileFields },
                 { new: true }
             )
@@ -125,10 +125,10 @@ const profileDeleteCompletely = async (req, res) => {
         // TODO: remove user's posts
 
         // removing user's profile
-        await Profile.findOneAndRemove({ user: req.user.id })
+        await Profile.findOneAndRemove({ user: req.user.ID })
 
         // removing user
-        await User.findOneAndRemove({ _id: req.user.id })
+        await User.findOneAndRemove({ _id: req.user.ID })
 
         res.json({ msg: 'User deleted' })
     } catch (err) {
@@ -156,7 +156,7 @@ const profileAddExperience = async (req, res) => {
     }
 
     try {
-        const foundProfile = await Profile.findOne({ user: req.user.id })
+        const foundProfile = await Profile.findOne({ user: req.user.ID })
         if (!foundProfile) {
             return res.status(404).json({ msg: 'No profile found for this user' })
         }
@@ -173,7 +173,7 @@ const profileAddExperience = async (req, res) => {
 
 const profileDeleteExperience = async (req, res) => {
     try {
-        const foundProfile = await Profile.findOne({ user: req.user.id })
+        const foundProfile = await Profile.findOne({ user: req.user.ID })
         if (!foundProfile) {
             return res.status(404).json({ msg: 'No profile found for this user' })
         }
@@ -218,7 +218,7 @@ const profileAddEducation = async (req, res) => {
     }
 
     try {
-        const foundProfile = await Profile.findOne({ user: req.user.id })
+        const foundProfile = await Profile.findOne({ user: req.user.ID })
         if (!foundProfile) {
             return res.status(404).json({ msg: 'No profile found for this user' })
         }
@@ -235,7 +235,7 @@ const profileAddEducation = async (req, res) => {
 
 const profileDeleteEducation = async (req, res) => {
     try {
-        const foundProfile = await Profile.findOne({ user: req.user.id })
+        const foundProfile = await Profile.findOne({ user: req.user.ID })
         if (!foundProfile) {
             return res.status(404).json({ msg: 'No profile found for this user' })
         }

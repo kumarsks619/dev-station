@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const chalk = require('chalk')
+const cors = require('cors')
 
 const connectDB = require('./config/db')
 const userRoutes = require('./routes/user')
@@ -12,6 +13,7 @@ const app = express()
 
 // Adding Middleware
 app.use(express.json({ extended: false }))
+app.use(cors())
 
 // Connecting to MongoDB database
 connectDB()

@@ -6,7 +6,7 @@ const User = require('../models/User')
 
 const userGetDetails = async (req, res) => {
     try {
-        const foundUser = await User.findById(req.user.id).select('-password')
+        const foundUser = await User.findById(req.user.ID).select('-password')
         return res.json(foundUser)
     } catch (err) {
         console.error(err.message)
@@ -43,7 +43,7 @@ const userLogin = async (req, res) => {
         // signing a JSON token to get the user logged in
         const token = await jwt.sign(
             {
-                user: { id: foundUser.id },
+                user: { ID: foundUser.id },
             },
             process.env.JWT_SECRET_KEY,
             {

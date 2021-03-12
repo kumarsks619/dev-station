@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { alertSet } from '../../store/actions/alert'
+import { userRegister } from '../../store/actions/auth'
 
 const Register = () => {
     const dispatch = useDispatch()
+    const { isAuth } = useSelector((state) => state.auth)
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -27,8 +30,13 @@ const Register = () => {
         if (password !== passwordConfirm) {
             dispatch(alertSet('Passwords do not match', 'danger'))
         } else {
-            console.log(formData)
+            dispatch(userRegister({ name, email, password }))
         }
+    }
+
+    // to redirect on successful register
+    if (isAuth) {
+        return <Redirect to="/dashboard" />
     }
 
     return (
@@ -45,6 +53,7 @@ const Register = () => {
                         name="name"
                         value={name}
                         onChange={handleOnChange}
+                        required
                     />
                 </div>
                 <div className="form-group">

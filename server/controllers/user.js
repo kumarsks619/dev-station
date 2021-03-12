@@ -46,14 +46,13 @@ const userRegister = async (req, res) => {
         // signing a JSON token to get the user logged in right away
         const token = await jwt.sign(
             {
-                user: { id: newUser.id },
+                user: { ID: newUser.id },
             },
             process.env.JWT_SECRET_KEY,
             {
                 expiresIn: '1h',
             }
         )
-
         return res.json({ token })
     } catch (err) {
         console.error(err.message)

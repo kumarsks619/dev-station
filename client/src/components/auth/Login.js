@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { userLogin } from '../../store/actions/auth'
 
 const Login = () => {
+    const dispatch = useDispatch()
+    const { isAuth } = useSelector((state) => state.auth)
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -17,6 +23,12 @@ const Login = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
+        dispatch(userLogin({ email, password }))
+    }
+
+    // to redirect on successful login
+    if (isAuth) {
+        return <Redirect to="/posts" />
     }
 
     return (
@@ -40,7 +52,6 @@ const Login = () => {
                     <input
                         type="password"
                         placeholder="Password"
-                        minLength="6"
                         name="password"
                         value={password}
                         onChange={handleOnChange}

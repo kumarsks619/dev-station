@@ -1,7 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { userLogout } from '../../store/actions/auth'
 
 const Navbar = () => {
+    const dispatch = useDispatch()
+    const { isAuth, isLoading } = useSelector((state) => state.auth)
+
+    const handleLogout = () => dispatch(userLogout())
+
     return (
         <nav className="navbar bg-dark">
             <h1>
@@ -13,12 +21,24 @@ const Navbar = () => {
                 <li>
                     <Link to="/profiles">Developers</Link>
                 </li>
-                <li>
-                    <Link to="/register">Register</Link>
-                </li>
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
+                {!isLoading &&
+                    (isAuth ? (
+                        <li>
+                            <Link to="#" onClick={handleLogout}>
+                                <i className="fas fa-sign-out-alt"></i>{' '}
+                                <span className="hide-sm">Logout</span>
+                            </Link>
+                        </li>
+                    ) : (
+                        <>
+                            <li>
+                                <Link to="/register">Register</Link>
+                            </li>
+                            <li>
+                                <Link to="/login">Login</Link>
+                            </li>
+                        </>
+                    ))}
             </ul>
         </nav>
     )

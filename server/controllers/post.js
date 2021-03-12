@@ -10,13 +10,13 @@ const postCreate = async (req, res) => {
     }
 
     try {
-        const currentUser = await User.findById(req.user.id).select('-password')
+        const currentUser = await User.findById(req.user.ID).select('-password')
 
         const newPost = new Post({
             text: req.body.text,
             name: currentUser.name,
             avatar: currentUser.avatar,
-            user: req.user.id,
+            user: req.user.ID,
         })
 
         const createdPost = await newPost.save()
@@ -65,7 +65,7 @@ const postDelete = async (req, res) => {
         }
 
         // checking if the current user is the owner of the post
-        if (foundPost.user.toString() !== req.user.id) {
+        if (foundPost.user.toString() !== req.user.ID) {
             return res.status(401).json({ msg: 'User can only delete own posts' })
         }
 
@@ -92,7 +92,7 @@ const postLike = async (req, res) => {
 
         // checking if the post is already liked by the current user
         if (
-            foundPost.likes.filter((like) => like.user.toString() === req.user.id).length
+            foundPost.likes.filter((like) => like.user.toString() === req.user.ID).length
         ) {
             return res.status(400).json({ msg: 'Post already liked by the current user' })
         }
@@ -121,7 +121,7 @@ const postUnlike = async (req, res) => {
 
         // checking if the post is already liked by the current user
         if (
-            !foundPost.likes.filter((like) => like.user.toString() === req.user.id).length
+            !foundPost.likes.filter((like) => like.user.toString() === req.user.ID).length
         ) {
             return res.status(400).json({
                 msg: 'Cannot unlike, as the post is not liked by the current user',
@@ -130,7 +130,7 @@ const postUnlike = async (req, res) => {
 
         // getting the index of the like to be removed
         const removeIndex = foundPost.likes.indexOf(
-            (like) => like.user.toString() === req.user.id
+            (like) => like.user.toString() === req.user.ID
         )
         foundPost.likes.splice(removeIndex, 1)
         foundPost.save()
@@ -154,7 +154,7 @@ const postAddComment = async (req, res) => {
     }
 
     try {
-        const currentUser = await User.findById(req.user.id).select('-password')
+        const currentUser = await User.findById(req.user.ID).select('-password')
 
         const foundPost = await Post.findById(req.params.postID)
         if (!foundPost) {
@@ -165,7 +165,7 @@ const postAddComment = async (req, res) => {
             text: req.body.text,
             name: currentUser.name,
             avatar: currentUser.avatar,
-            user: req.user.id,
+            user: req.user.ID,
         }
 
         foundPost.comments.unshift(newComment)
@@ -202,8 +202,8 @@ const postDeleteComment = async (req, res) => {
 
         // checking if the user is the owner of the comment or the post
         if (
-            foundPost.comments[removeIndex].user.toString() === req.user.id ||
-            foundPost.user.toString() === req.user.id
+            foundPost.comments[removeIndex].user.toString() === req.user.ID ||
+            foundPost.user.toString() === req.user.ID
         ) {
             foundPost.comments.splice(removeIndex, 1)
             await foundPost.save()

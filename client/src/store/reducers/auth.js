@@ -1,4 +1,5 @@
 import * as actionTypes from '../actionTypes/auth'
+import * as profileActionTypes from '../actionTypes/profile'
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -22,7 +23,7 @@ const registerReducer = (state = initialState, action) => {
             localStorage.setItem('token', action.payload.token)
             return {
                 ...state,
-                ...action.payload,
+                token: action.payload.token,
                 isAuth: true,
                 isLoading: false,
             }
@@ -31,12 +32,13 @@ const registerReducer = (state = initialState, action) => {
         case actionTypes.AUTH_ERROR:
         case actionTypes.LOGIN_FAIL:
         case actionTypes.LOGOUT:
+        case profileActionTypes.ACCOUNT_DELETE:
             localStorage.removeItem('token')
             return {
-                ...state,
                 token: null,
                 isAuth: false,
                 isLoading: false,
+                user: null,
             }
 
         default:

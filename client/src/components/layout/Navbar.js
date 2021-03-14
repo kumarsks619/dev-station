@@ -19,16 +19,24 @@ const Navbar = () => {
             </h1>
             <ul>
                 <li>
-                    <Link to="/profiles">Developers</Link>
+                    <Link to="/profiles">Community</Link>
                 </li>
                 {!isLoading &&
                     (isAuth ? (
-                        <li>
-                            <Link to="#" onClick={handleLogout}>
-                                <i className="fas fa-sign-out-alt"></i>{' '}
-                                <span className="hide-sm">Logout</span>
-                            </Link>
-                        </li>
+                        <>
+                            <li>
+                                <Link to="/dashboard">
+                                    <i className="fas fa-user"></i>{' '}
+                                    <span className="hide-sm">Dashboard</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="#" onClick={handleLogout}>
+                                    <i className="fas fa-sign-out-alt"></i>{' '}
+                                    <span className="hide-sm">Logout</span>
+                                </Link>
+                            </li>
+                        </>
                     ) : (
                         <>
                             <li>

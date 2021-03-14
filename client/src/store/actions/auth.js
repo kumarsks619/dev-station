@@ -1,9 +1,8 @@
-import axios from 'axios'
-
 import * as actionTypes from '../actionTypes/auth'
-import { SERVER_URL } from '../url'
+import * as profileActionTypes from '../actionTypes/profile'
 import { alertSet } from '../actions/alert'
 import setAuthHeader from '../../utils/setAuthHeader'
+import axiosInstance from '../../utils/axiosInstance'
 
 // Load user
 export const userLoad = () => async (dispatch) => {
@@ -12,7 +11,7 @@ export const userLoad = () => async (dispatch) => {
     }
 
     try {
-        const { data } = await axios.get(`${SERVER_URL}/api/auth`)
+        const { data } = await axiosInstance.get(`/api/auth`)
 
         dispatch({
             type: actionTypes.USER_LOADED,
@@ -34,7 +33,7 @@ export const userRegister = (userData) => async (dispatch) => {
     }
 
     try {
-        const { data } = await axios.post(`${SERVER_URL}/api/users`, userData, config)
+        const { data } = await axiosInstance.post(`/api/users`, userData, config)
 
         dispatch({
             type: actionTypes.REGISTER_SUCCESS,
@@ -67,7 +66,7 @@ export const userLogin = (userData) => async (dispatch) => {
     }
 
     try {
-        const { data } = await axios.post(`${SERVER_URL}/api/auth`, userData, config)
+        const { data } = await axiosInstance.post(`/api/auth`, userData, config)
 
         dispatch({
             type: actionTypes.LOGIN_SUCCESS,
@@ -95,5 +94,8 @@ export const userLogin = (userData) => async (dispatch) => {
 export const userLogout = () => (dispatch) => {
     dispatch({
         type: actionTypes.LOGOUT,
+    })
+    dispatch({
+        type: profileActionTypes.PROFILE_CLEAR,
     })
 }

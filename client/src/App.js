@@ -10,6 +10,11 @@ import Login from './components/auth/Login'
 import Alert from './components/layout/Alert'
 import { userLoad } from './store/actions/auth'
 import setAuthHeader from './utils/setAuthHeader'
+import Dashboard from './components/dashboard/Dashboard'
+import PrivateRoute from './utils/PrivateRoute'
+import CreateProfile from './components/profile-form/CreateProfile'
+import AddExperience from './components/profile-form/AddExperience'
+import AddEducation from './components/profile-form/AddEducation'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -32,6 +37,18 @@ const App = () => {
                 <Switch>
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
+                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                    <PrivateRoute
+                        exact
+                        path="/create-profile"
+                        component={CreateProfile}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/add-experience"
+                        component={AddExperience}
+                    />
+                    <PrivateRoute exact path="/add-education" component={AddEducation} />
                 </Switch>
             </section>
         </Router>

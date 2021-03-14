@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axiosInstance from './axiosInstance'
 
 const setAuthHeader = (token) => {
     if (token) {
-        axios.defaults.headers.authorization = `Bearer ${token}`
+        axiosInstance.defaults.headers.authorization = `Bearer ${token}`
     } else {
-        delete axios.defaults.headers.authorization
+        delete axiosInstance.defaults.headers.authorization
     }
 }
 

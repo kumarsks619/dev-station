@@ -18,6 +18,20 @@ const profileReducer = (state = initialState, action) => {
                 isLoading: false,
             }
 
+        case actionTypes.PROFILE_GET_ALL:
+            return {
+                ...state,
+                profiles: action.payload,
+                isLoading: false,
+            }
+
+        case actionTypes.PROFILE_GET_REPOS:
+            return {
+                ...state,
+                repos: action.payload,
+                isLoading: false,
+            }
+
         case actionTypes.PROFILE_ERROR:
             return {
                 ...state,
@@ -30,7 +44,7 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 userProfile: null,
                 repos: [],
-                isLoading: false,
+                isLoading: true,
             }
 
         default:

@@ -3,7 +3,7 @@ import Lottie from 'react-lottie'
 
 import loadingData from '../../assets/loading.json'
 
-const Loader = () => {
+const Loader = ({ lotteData }) => {
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -13,7 +13,22 @@ const Loader = () => {
         },
     }
 
-    return <Lottie options={defaultOptions} height={200} width={200} />
+    const customOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: lotteData,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice',
+        },
+    }
+
+    return (
+        <Lottie
+            options={lotteData ? customOptions : defaultOptions}
+            height={200}
+            width={200}
+        />
+    )
 }
 
 export default Loader

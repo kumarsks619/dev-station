@@ -24,8 +24,8 @@ const Profile = ({ match }) => {
         <Loader />
     ) : (
         <>
-            <Link to="/profiles" class="btn">
-                Back To Profiles
+            <Link to="/profiles" className="btn">
+                Back To Community
             </Link>
 
             {auth.isAuth && !auth.isLoading && auth.user._id === userProfile.user._id && (
@@ -34,16 +34,16 @@ const Profile = ({ match }) => {
                 </Link>
             )}
 
-            <div class="div profile-grid my-1">
+            <div className="div profile-grid my-1">
                 <ProfileTop profile={userProfile} />
                 <ProfileAbout profile={userProfile} />
 
                 {/* Experience */}
-                <div class="profile-exp bg-white p-2">
-                    <h2 class="text-primary">Experience</h2>
+                <div className="profile-exp bg-white p-2">
+                    <h2 className="text-primary">Experience</h2>
                     {userProfile.experience.length > 0 ? (
-                        userProfile.experience.map((exp) => (
-                            <ProfileExp experience={exp} />
+                        userProfile.experience.map((exp, index) => (
+                            <ProfileExp key={index} experience={exp} />
                         ))
                     ) : (
                         <h4>No experience credentials.</h4>
@@ -51,10 +51,12 @@ const Profile = ({ match }) => {
                 </div>
 
                 {/* Education */}
-                <div class="profile-edu bg-white p-2">
-                    <h2 class="text-primary">Education</h2>
+                <div className="profile-edu bg-white p-2">
+                    <h2 className="text-primary">Education</h2>
                     {userProfile.education.length > 0 ? (
-                        userProfile.education.map((edu) => <ProfileEdu education={edu} />)
+                        userProfile.education.map((edu, index) => (
+                            <ProfileEdu key={index} education={edu} />
+                        ))
                     ) : (
                         <h4>No education credentials.</h4>
                     )}

@@ -91,7 +91,9 @@ export const userLogin = (userData) => async (dispatch) => {
 }
 
 // Logout user - clear everything
-export const userLogout = () => (dispatch) => {
+export const userLogout = (history) => (dispatch) => {
+    history.push('/login')
+
     dispatch({
         type: actionTypes.LOGOUT,
     })

@@ -15,14 +15,14 @@ const ProfileGithub = ({ githubUsername }) => {
     return isLoading ? (
         <Loader />
     ) : (
-        <div class="profile-github">
-            <h2 class="text-primary my-1">
-                <i class="fab fa-github"></i> Github Repos
+        <div className="profile-github">
+            <h2 className="text-primary my-1">
+                <i className="fab fa-github"></i> Github Repos
             </h2>
 
             {repos.length > 0 ? (
                 repos.map((repo) => (
-                    <div key={repo._id} class="repo bg-white my-1 p-1">
+                    <div key={repo.id} className="repo bg-white my-1 p-1">
                         <div>
                             <h4>
                                 <a
@@ -38,13 +38,13 @@ const ProfileGithub = ({ githubUsername }) => {
 
                         <div>
                             <ul>
-                                <li class="badge badge-primary">
+                                <li className="badge badge-primary">
                                     Stars: {repo.stargazers_count}
                                 </li>
-                                <li class="badge badge-dark">
+                                <li className="badge badge-dark">
                                     Watchers: {repo.watchers_count}
                                 </li>
-                                <li class="badge badge-light">
+                                <li className="badge badge-light">
                                     Forks: {repo.forks_count}
                                 </li>
                             </ul>

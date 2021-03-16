@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { userLogout } from '../../store/actions/auth'
 
-const Navbar = () => {
+const Navbar = ({ history }) => {
     const dispatch = useDispatch()
     const { isAuth, isLoading } = useSelector((state) => state.auth)
 
-    const handleLogout = () => dispatch(userLogout())
+    const handleLogout = () => dispatch(userLogout(history))
 
     return (
         <nav className="navbar bg-dark">
@@ -25,6 +25,9 @@ const Navbar = () => {
                     (isAuth ? (
                         <>
                             <li>
+                                <Link to="/posts">
+                                    <span className="hide-sm">Timeline</span>
+                                </Link>
                                 <Link to="/dashboard">
                                     <i className="fas fa-user"></i>{' '}
                                     <span className="hide-sm">Dashboard</span>

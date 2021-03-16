@@ -97,7 +97,7 @@ const postLike = async (req, res) => {
             return res.status(400).json({ msg: 'Post already liked by the current user' })
         }
 
-        foundPost.likes.unshift({ user: req.user.id })
+        foundPost.likes.unshift({ user: req.user.ID })
         foundPost.save()
 
         return res.json(foundPost.likes)

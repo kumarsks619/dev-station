@@ -56,6 +56,14 @@ const postReducer = (state = initialState, action) => {
                 isLoading: false,
             }
 
+        case actionTypes.POST_CLEAR:
+            return {
+                ...state,
+                post: null,
+                posts: [],
+                isLoading: true,
+            }
+
         case actionTypes.POST_ERROR:
             return {
                 ...state,

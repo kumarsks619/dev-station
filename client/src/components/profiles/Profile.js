@@ -8,6 +8,7 @@ import ProfileAbout from './ProfileAbout'
 import ProfileExp from './ProfileExp'
 import ProfileEdu from './ProfileEdu'
 import ProfileGithub from './ProfileGithub'
+import NotFound from '../layout/NotFound'
 
 const Profile = ({ match }) => {
     const dispatch = useDispatch()
@@ -20,8 +21,15 @@ const Profile = ({ match }) => {
         dispatch(profileGetByID(userID))
     }, [dispatch, userID])
 
-    return isLoading || userProfile === null ? (
+    return isLoading ? (
         <Loader />
+    ) : userProfile === null ? (
+        <>
+            <h4 className="large text-primary my-3" style={{ textAlign: 'center' }}>
+                No Profile Found
+            </h4>
+            <NotFound />
+        </>
     ) : (
         <>
             <Link to="/profiles" className="btn">

@@ -84,6 +84,8 @@ export const postCreate = (formData) => async (dispatch) => {
 
 // Get a post by postID
 export const postGetByID = (postID) => async (dispatch) => {
+    dispatch({ type: actionTypes.POST_CLEAR })
+
     try {
         const { data } = await axiosInstance.get(`api/posts/${postID}`)
 

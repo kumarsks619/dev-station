@@ -7,7 +7,7 @@ import { postUpdateLike, postDelete } from '../../store/actions/post'
 
 const PostItem = ({
     post: { text, name, avatar, user, _id, likes, comments, createdAt },
-    showDiscussionBtn = true,
+    showActions = true,
 }) => {
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth)
@@ -28,31 +28,66 @@ const PostItem = ({
 
             <div>
                 <p className="my-1">{text}</p>
-                <p className="post-date">
+                <p className="post-date my-1">
                     Posted on <Moment format="YYYY/MM/DD">{createdAt}</Moment>
                 </p>
 
-                <button className="btn" onClick={() => handlePostLike(_id)}>
-                    <i className="fas fa-thumbs-up"></i> <span>{likes.length}</span>
-                </button>
-                <button className="btn" onClick={() => handlePostUnlike(_id)}>
-                    <i className="fas fa-thumbs-down"></i>
-                </button>
+                {showActions && (
+                    <>
+                        {!auth.isLoading && auth.user && (
+                            <>
+                                <button
+                                    className={
+                                        likes.findIndex(
+                                            (like) => like.user === auth.user._id
+                                        ) !== -1
+                                            ? 'btn btn-active'
+                                            : 'btn'
+                                    }
+                                    onClick={() => handlePostLike(_id)}
+                                    disabled={
+                                        likes.findIndex(
+                                            (like) => like.user === auth.user._id
+                                        ) !== -1
+                                    }
+                                >
+                                    <i className="fas fa-thumbs-up"></i>{' '}
+                                    <span>{likes.length}</span>
+                                </button>
+                                <button
+                                    className={
+                                        likes.findIndex(
+                                            (like) => like.user === auth.user._id
+                                        ) === -1
+                                            ? 'btn btn-disabled'
+                                            : 'btn'
+                                    }
+                                    onClick={() => handlePostUnlike(_id)}
+                                    disabled={
+                                        likes.findIndex(
+                                            (like) => like.user === auth.user._id
+                                        ) === -1
+                                    }
+                                >
+                                    <i className="fas fa-thumbs-down"></i>
+                                </button>{' '}
+                            </>
+                        )}
 
-                {showDiscussionBtn && (
-                    <Link to={`/post/${_id}`} className="btn btn-primary">
-                        Discussion{' '}
-                        <span className="comment-count">{comments.length}</span>
-                    </Link>
-                )}
+                        <Link to={`/post/${_id}`} className="btn btn-primary">
+                            Discussion{' '}
+                            <span className="comment-count">{comments.length}</span>
+                        </Link>
 
-                {!auth.isLoading && auth.user && user === auth.user._id && (
-                    <button
-                        className="btn btn-danger"
-                        onClick={() => handlePostDelete(_id)}
-                    >
-                        <i className="fas fa-trash"></i>
-                    </button>
+                        {!auth.isLoading && auth.user && user === auth.user._id && (
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => handlePostDelete(_id)}
+                            >
+                                <i className="fas fa-trash"></i>
+                            </button>
+                        )}
+                    </>
                 )}
             </div>
         </div>

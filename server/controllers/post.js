@@ -119,19 +119,19 @@ const postUnlike = async (req, res) => {
             return res.status(404).json({ msg: 'No post found with this post ID' })
         }
 
+        // finding the index of the like to be removed
+        const removeIndex = foundPost.likes.findIndex(
+            (like) => like.user.toString() === req.user.ID
+        )
+
         // checking if the post is already liked by the current user
-        if (
-            !foundPost.likes.filter((like) => like.user.toString() === req.user.ID).length
-        ) {
+        if (removeIndex === -1) {
             return res.status(400).json({
                 msg: 'Cannot unlike, as the post is not liked by the current user',
             })
         }
 
-        // getting the index of the like to be removed
-        const removeIndex = foundPost.likes.indexOf(
-            (like) => like.user.toString() === req.user.ID
-        )
+        // removing the like from the array of likes
         foundPost.likes.splice(removeIndex, 1)
         foundPost.save()
 

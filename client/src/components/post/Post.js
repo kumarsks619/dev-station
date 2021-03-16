@@ -28,7 +28,7 @@ const Post = ({ match }) => {
                 Back To Timeline
             </Link>
 
-            <PostItem post={post} showDiscussionBtn={false} />
+            <PostItem post={post} showActions={false} />
 
             <CommentForm postID={postID} />
 

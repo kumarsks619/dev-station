@@ -31,7 +31,7 @@ const Dashboard = () => {
 
             {userProfile ? (
                 <>
-                    <DashboardActions />
+                    <DashboardActions userID={user._id} />
                     <Experience experiences={userProfile.experience} />
                     <Education educations={userProfile.education} />
 

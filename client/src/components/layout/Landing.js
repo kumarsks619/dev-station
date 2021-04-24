@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Footer from './Footer'
 
 const Landing = () => {
     const { isAuth } = useSelector((state) => state.auth)
@@ -28,6 +29,8 @@ const Landing = () => {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </section>
     )
 }
